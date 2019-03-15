@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,6 +87,7 @@ WSGI_APPLICATION = 'ranked.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+print("setting dbs")
 if os.environ.get("ENVIRONMENT", "Development") != "PRODUCTION":
     DATABASES = {
         'default': {
@@ -97,7 +99,10 @@ if os.environ.get("ENVIRONMENT", "Development") != "PRODUCTION":
             'PORT': os.environ.get('DATABASE_PORT', '5432'),
         }
     }
+else:
+    DATABASES = dj_database_url.config(engine='django.db.backends.postgresql_psycopg2')
 
+print(DATABASES)
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
