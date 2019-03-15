@@ -86,16 +86,17 @@ WSGI_APPLICATION = 'ranked.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE_NAME', 'ranked'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'USER': os.environ.get('DATABASE_USER', 'gregmurray'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'root'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
+if os.environ.get("ENVIRONMENT", "Development") != "PRODUCTION":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DATABASE_NAME', 'ranked'),
+            'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+            'USER': os.environ.get('DATABASE_USER', 'gregmurray'),
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'root'),
+            'PORT': os.environ.get('DATABASE_PORT', '5432'),
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
