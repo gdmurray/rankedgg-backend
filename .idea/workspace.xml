@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f661901-981f-420b-a398-40726b47465a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ranked/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ranked/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ranked/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/ranked/prod.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,20 +69,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ranked/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="98" selection-end-column="5" />
+            <state relative-caret-position="197">
+              <caret line="91" column="63" lean-forward="true" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ranked/prod.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="81" selection-start-line="12" selection-start-column="81" selection-end-line="12" selection-end-column="81" />
+            <state relative-caret-position="210">
+              <caret line="14" column="73" selection-start-line="14" selection-start-column="73" selection-end-line="14" selection-end-column="73" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -219,8 +219,8 @@
         <option value="$PROJECT_DIR$/core/serializers.py" />
         <option value="$PROJECT_DIR$/core/views.py" />
         <option value="$PROJECT_DIR$/Procfile" />
-        <option value="$PROJECT_DIR$/ranked/prod.py" />
         <option value="$PROJECT_DIR$/ranked/settings.py" />
+        <option value="$PROJECT_DIR$/ranked/prod.py" />
       </list>
     </option>
   </component>
@@ -358,12 +358,12 @@
       <updated>1552236412145</updated>
       <workItem from="1552236419468" duration="1079000" />
       <workItem from="1552258219456" duration="289000" />
-      <workItem from="1552287866467" duration="27730000" />
+      <workItem from="1552287866467" duration="27835000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29098000" />
+    <option name="totallyTimeSpent" value="29203000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -617,20 +617,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ranked/prod.py">
+    <entry file="file://$PROJECT_DIR$/ranked/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="81" selection-start-line="12" selection-start-column="81" selection-end-line="12" selection-end-column="81" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="197">
+          <caret line="91" column="63" lean-forward="true" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ranked/settings.py">
+    <entry file="file://$PROJECT_DIR$/ranked/prod.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="98" selection-end-column="5" />
+        <state relative-caret-position="210">
+          <caret line="14" column="73" selection-start-line="14" selection-start-column="73" selection-end-line="14" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
