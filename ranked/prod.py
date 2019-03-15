@@ -10,6 +10,6 @@ ALLOWED_HOSTS = [
 CORS_ORIGIN_WHITELIST = (
     'ranked.wtf'
 )
-
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+print(os.environ.get('DATABASE_URL'))
+DATABASES['default'] = dj_database_url.config()
+# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
