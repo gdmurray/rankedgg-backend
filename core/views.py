@@ -90,6 +90,8 @@ class MostReportedOperators(APIView):
             "attacker": None,
             "defender": None
         }
+        print(attackers)
+        print(defenders)
         if attackers.count() >= 1:
             top_atk_id = attackers[0][0]
             top_atk_rate = attackers[0][1]

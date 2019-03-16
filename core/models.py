@@ -35,6 +35,7 @@ class Player(models.Model):
         if reports:
             operators = reports.values_list('operator').annotate(report_count=Count('operator')).order_by(
                 '-report_count')
+            print(operators)
             if operators.count() >= 2:
                 top = operators[0]
                 second = operators[1]
