@@ -6,6 +6,7 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'ranked.wtf'
+    'ranked.wtf',
+    'https://www.ranked.wtf'
 )
 

@@ -100,7 +100,9 @@ if os.environ.get("ENVIRONMENT", "Development") != "PRODUCTION":
         }
     }
 else:
-    DATABASES = dj_database_url.config(engine='django.db.backends.postgresql_psycopg2')
+    DATABASES = {
+        "default":  dj_database_url.config(engine='django.db.backends.postgresql_psycopg2')
+    }
 
 print(DATABASES)
 # Password validation
