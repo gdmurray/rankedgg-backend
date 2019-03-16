@@ -48,7 +48,7 @@ class Player(models.Model):
                     operator = Operator.objects.get(id=top[0])
                     return operator
             elif operators.count() == 1:
-                operator = Operator.objects.get(operators[0][0])
+                operator = Operator.objects.get(id=operators[0][0])
                 print("only 1 report, return top")
                 return operator
         return None
