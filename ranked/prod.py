@@ -7,6 +7,8 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = (
     'ranked.wtf',
-    'https://www.ranked.wtf'
+    'http://ranked.wtf',
+    'https://www.ranked.wtf',
+    "ranked-gg.herokuapp.com",
+    "https://ranked-gg.herokuapp.com",
 )
-
