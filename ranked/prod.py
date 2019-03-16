@@ -12,3 +12,5 @@ CORS_ORIGIN_WHITELIST = (
     "ranked-gg.herokuapp.com",
     "https://ranked-gg.herokuapp.com",
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
