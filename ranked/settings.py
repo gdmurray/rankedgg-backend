@@ -16,11 +16,23 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DEVELOPMENT_ENV_FILE = ".env"
+
+
+def set_envfile():
+    if os.path.isfile(DEVELOPMENT_ENV_FILE):
+        with open(DEVELOPMENT_ENV_FILE) as f:
+            os.environ.update(
+                line.replace('export ', '', 1).strip().split('=', 1) for line in f
+            )
+
+
+set_envfile()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY',  )
+SECRET_KEY = os.environ.get('SECRET_KEY', )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -100,7 +112,7 @@ if os.environ.get("ENVIRONMENT", "Development") != "PRODUCTION":
     }
 else:
     DATABASES = {
-        "default":  dj_database_url.config(engine='django.db.backends.postgresql_psycopg2')
+        "default": dj_database_url.config(engine='django.db.backends.postgresql_psycopg2')
     }
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -137,3 +149,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "staticfiles/"
