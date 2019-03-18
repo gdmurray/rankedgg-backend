@@ -3,6 +3,7 @@ import json
 import datetime
 import pytz
 
+
 class R6TabAPI:
     @staticmethod
     def find_by_username(username):
@@ -13,8 +14,6 @@ class R6TabAPI:
         result_set = None
 
         for result in data['results']:
-            # print(username, result['p_name'])
-            # print(username == result['p_name'])
             if result['p_name'] == username:
                 result_set = result
 
@@ -30,6 +29,10 @@ class R6TabAPI:
 
     @staticmethod
     def update_meta(meta, data):
+        if meta.player.username != data["p_name"]:
+            meta.player.username = data["p_name"]
+            meta.player.save()
+
         meta.current_mmr = int(data['p_currentmmr'])
         meta.current_rank = int(data['p_currentrank'])
 

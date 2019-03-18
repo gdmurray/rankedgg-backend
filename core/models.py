@@ -27,9 +27,8 @@ class Player(models.Model):
     def player_image(self):
         return f"https://ubisoft-avatars.akamaized.net/{self.p_user}/default_146_146.png"
 
-    def queried(self):
-        self.last_queried = datetime.datetime.utcnow()
-        self.save()
+    def __str__(self):
+        return self.username
 
     def recommend(self, reports):
         if reports:
@@ -89,6 +88,9 @@ class PlayerMeta(models.Model):
     AS_rank = models.IntegerField(null=True)
 
     last_queried = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return f"{self.player.username} metadata"
 
 
 @receiver(post_save, sender=Player)
