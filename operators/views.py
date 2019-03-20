@@ -20,7 +20,9 @@ class OperatorListView(APIView):
         if region:
             qs = list(Operator.objects.values('name', 'type', 'logo', 'image').annotate(
                 report_count=Count('report', filter=Q(report__region=region))).order_by('-report_count'))
+            print("region ", region, qs)
         else:
             qs = list(Operator.objects.values('name', 'type', 'logo', 'image').annotate(
                 report_count=Count('report')).order_by('-report_count'))
+            print("no region ", qs)
         return JsonResponse(data=qs, safe=False)
