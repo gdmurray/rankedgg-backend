@@ -16,7 +16,11 @@ class OperatorDropdownOptions(ListAPIView):
 
 class OperatorListView(APIView):
     def get(self, request, *args, **kwargs):
-        # filter=Q(report__region="EU")
-        qs = list(Operator.objects.values('name', 'type', 'logo', 'image').annotate(
-            report_count=Count('report')).order_by('-report_count'))
+        region = request.GET.get("region")
+        if region:
+            qs = list(Operator.objects.values('name', 'type', 'logo', 'image').annotate(
+                report_count=Count('report', filter=Q(report__region=region))).order_by('-report_count'))
+        else:
+            qs = list(Operator.objects.values('name', 'type', 'logo', 'image').annotate(
+                report_count=Count('report')).order_by('-report_count'))
         return JsonResponse(data=qs, safe=False)
