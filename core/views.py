@@ -21,8 +21,11 @@ class SearchUsernameView(APIView):
         region = request.GET.get('region')
         try:
             if not player:
-                user_data = R6TabAPI.find_by_username(username)
-                if not user_data:
+                try:
+                    user_data = R6TabAPI.find_by_username(username)
+                    if not user_data:
+                        return Response(status=404)
+                except KeyError:
                     return Response(status=404)
                 else:
                     player_id = user_data['p_id']
@@ -118,6 +121,7 @@ class MostReportedOperators(APIView):
 class MostNotoriousPlayers(APIView):
     def get(self, request, operator, *args, **kwargs):
         region = request.GET.get("region")
+        operator = operator.capitalize()
         op_obj = Operator.objects.filter(name=operator).first()
         print("OP id ", op_obj.id)
         if region:
