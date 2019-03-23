@@ -5,9 +5,9 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from ranked.constants import REGION_CHOICES, GLOBAL, METADATA_REFRESH_HOURS, ATTACKER, DEFENDER
 import datetime
-from .R6TabAPI import R6TabAPI
+from search.R6TabAPI import R6TabAPI
 from django.utils import timezone
-from .functions import timedelta_now_hours
+from ranked.functions import timedelta_now_hours
 
 
 # Create your models here.

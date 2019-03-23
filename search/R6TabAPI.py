@@ -14,7 +14,7 @@ class R6TabAPI:
         result_set = None
 
         for result in data['results']:
-            if result['p_name'] == username:
+            if result['p_name'].lower() == username.lower():
                 result_set = result
 
         return result_set
