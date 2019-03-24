@@ -15,7 +15,12 @@ class BasePlayerSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     current_rank = serializers.SerializerMethodField()
     current_mmr = serializers.SerializerMethodField()
+    current_level = serializers.SerializerMethodField()
     update = serializers.SerializerMethodField()
+
+    def get_current_level(self, obj):
+        metadata = obj.get_metadata()
+        return metadata.current_level
 
     def get_update(self, obj):
         if 'from_task' not in self.context:
