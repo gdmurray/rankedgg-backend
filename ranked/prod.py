@@ -1,7 +1,9 @@
 from .settings import *
 
 ALLOWED_HOSTS = [
-    "ranked-gg.herokuapp.com",
+    'backend',
+    'daphne',
+    'api.ranked.wtf',
     "ranked.wtf"
 ]
 
