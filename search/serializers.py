@@ -1,70 +1,35 @@
 from rest_framework import serializers
 
-from player.serializers import BasePlayerSerializer
+from player.serializers import BasePlayerSerializer, BasePlayerSerializerOperatorMixin
 from player.models import Player
 
-from operators.serializers import OperatorSelectSerializer
 
-
-class SearchPlayerSerializer(BasePlayerSerializer):
-    current_rank = serializers.SerializerMethodField()
-    current_mmr = serializers.SerializerMethodField()
-    attacker = serializers.SerializerMethodField()
-    defender = serializers.SerializerMethodField()
-
-    def get_current_rank(self, obj):
-        metadata = obj.fetch_metadata()
-        if self.context['region'] == "NA":
-            return metadata.NA_rank
-        elif self.context['region'] == "EU":
-            return metadata.EU_rank
-        elif self.context['region'] == "AS":
-            return metadata.AS_rank
-        else:
-            return obj.current_rank
-
-    def get_current_mmr(self, obj):
-        metadata = obj.fetch_metadata()
-        if self.context['region'] == "NA":
-            return metadata.NA_mmr
-        elif self.context['region'] == "EU":
-            return metadata.EU_mmr
-        elif self.context['region'] == "AS":
-            return metadata.AS_mmr
-        else:
-            return obj.current_mmr
-
-    def get_attacker(self, obj):
-        operator = obj.recommended_attacker()
-        if operator:
-            return OperatorSelectSerializer(operator, many=False).data
-        return None
-
-    def get_defender(self, obj):
-        operator = obj.recommended_defender()
-        if operator:
-            return OperatorSelectSerializer(operator, many=False).data
-        return None
-
+class SearchPlayerSerializer(BasePlayerSerializerOperatorMixin):
     class Meta:
         model = Player
         fields = ('username', 'current_rank', 'image',
                   'current_level', 'current_mmr', 'current_rank',
-                  'attacker', 'defender')
+                  'attacker', 'defender', 'update')
 
 
 class R6TabUserSerializer(BasePlayerSerializer):
+    """
+    Overrides get_current_rank because fetching 1 metadata with API call is not taxing
+    """
     current_rank = serializers.SerializerMethodField()
 
     def get_current_rank(self, obj):
-        if self.context['region'] == "NA":
+        if self.context['region'] == "NA" and self.context['metadata'].NA_rank:
             return self.context['metadata'].NA_rank
-        elif self.context['region'] == "EU":
+
+        elif self.context['region'] == "EU" and self.context['metadata'].EU_rank:
             return self.context['metadata'].EU_rank
-        elif self.context['region'] == "AS":
+
+        elif self.context['region'] == "AS" and self.context['metadata'].AS_rank:
             return self.context['metadata'].AS_rank
+
         else:
-            return obj.current_rank
+            return self.context['metadata'].current_rank
 
     class Meta:
         model = Player

@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from .serializers import OperatorSelectSerializer
 from .models import Operator
 from django.db.models import Count, Q
+from player.serializers import PageNumberPaginationDataOnly
 
 
 # Create your views here.
@@ -12,6 +13,7 @@ from django.db.models import Count, Q
 class OperatorDropdownOptions(ListAPIView):
     serializer_class = OperatorSelectSerializer
     queryset = Operator.objects.all()
+    pagination_class = None
 
 
 class OperatorListView(APIView):

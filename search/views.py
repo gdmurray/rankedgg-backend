@@ -3,8 +3,6 @@ from player.models import Player
 from .R6TabAPI import R6TabAPI
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
-from ranked.functions import timedelta_now_hours
-from ranked.constants import PLAYER_DATA_REFRESH_HOURS
 from .serializers import R6TabUserSerializer, SearchPlayerSerializer
 
 
@@ -14,6 +12,7 @@ class SearchUsernameView(APIView):
         player = Player.objects.filter(username=username).first()
         region = request.GET.get('region')
         try:
+            # If cant find the name in db
             if not player:
                 try:
                     user_data = R6TabAPI.find_by_username(username)
@@ -25,12 +24,11 @@ class SearchUsernameView(APIView):
                     player_id = user_data['p_id']
                     player, created = Player.objects.get_or_create(p_id=player_id)
                     R6TabAPI.save_defaults(player, user_data)
+                    metadata = player.fetch_metadata()
             else:
-                if timedelta_now_hours(player.last_queried) > PLAYER_DATA_REFRESH_HOURS:
-                    print("Player Refresh Time")
-                    user_data = R6TabAPI.find_by_username(username)
-                    R6TabAPI.save_defaults(player, user_data)
-            metadata = player.fetch_metadata()
+                metadata = player.get_metadata()
+                if player.needs_metadata_fetch():
+                    metadata = player.fetch_metadata(metadata)
             data = R6TabUserSerializer(player, many=False, context={"region": region, "metadata": metadata}).data
             return Response(data=data, status=200)
 
@@ -48,4 +46,5 @@ class SearchUserView(ListAPIView):
         region = self.request.GET.get('region')
         return {"region": region}
 
+    pagination_class = None
     serializer_class = SearchPlayerSerializer

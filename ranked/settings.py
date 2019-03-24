@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'player',
     'search',
     'operators',
+    'channels',
 
     'corsheaders',
     'rest_framework',
@@ -166,3 +167,18 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+ASGI_APPLICATION = "ranked.routing.application"
+
+
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", 'redis://localhost:6379')
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            'hosts': [os.environ.get("REDIS_URL", 'redis://localhost:6379')]  # 'redis://localhost:6379']#
+        }
+    }
+}
+

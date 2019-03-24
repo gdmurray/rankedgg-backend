@@ -1,17 +1,16 @@
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
-from .models import Player, PlayerMeta, Report
+from .models import Player, Report
 from operators.models import Operator
 from .serializers import PlayerLeaderBoardSerializer, StandardResultsSetPagination
 from rest_framework.response import Response
 from ipware import get_client_ip
-from ranked.constants import PLAYER_DATA_REFRESH_HOURS, METADATA_REFRESH_HOURS, ATTACKER, DEFENDER
-from django.db.models import Count, Q
+from ranked.constants import ATTACKER, DEFENDER
+from django.db.models import Count, Q, F
 from operators.serializers import OperatorSelectSerializer
-from django.db.models import Sum, F
 from django.db.models.expressions import Window
-from django.db.models.functions import Rank, RowNumber
-from rest_framework.pagination import PageNumberPagination
+from django.db.models.functions import RowNumber, Rank
+
 
 class ReportUserView(APIView):
     # TODO: ADD IP ENFORCEMENT ON WEBSITE
@@ -49,8 +48,6 @@ class MostReportedOperators(APIView):
             "attacker": None,
             "defender": None
         }
-        print(attackers)
-        print(defenders)
         if attackers.count() >= 1:
             top_atk_id = attackers[0][0]
             top_atk_rate = attackers[0][1]
@@ -99,19 +96,13 @@ class PlayerLeaderBoardView(ListAPIView):
         if region:
             qs = Player.objects.annotate(
                 report_count=Count('report', filter=Q(report__region=region)),
-                ranking=Window(
-                    expression=RowNumber(),
-                    order_by=Count('report').desc()
-                ),
-            ).order_by('-report_count').filter(report_count__gt=0)
+            ).filter(report_count__gt=0).order_by('-report_count')
+            print("region ", qs)
         else:
             qs = Player.objects.annotate(
                 report_count=Count('report'),
-                ranking=Window(
-                    expression=RowNumber(),
-                    order_by=Count('report').desc()
-                ),
-            ).order_by('-report_count').filter(report_count__gt=0)
+            ).filter(report_count__gt=0).order_by('-report_count')
+            print("no region ", qs)
         return qs
 
     pagination_class = StandardResultsSetPagination

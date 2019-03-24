@@ -29,10 +29,9 @@ class R6TabAPI:
 
     @staticmethod
     def update_meta(meta, data):
-        if meta.player.username != data["p_name"]:
-            meta.player.username = data["p_name"]
-            meta.player.save()
+        print("updating metadata")
 
+        meta.current_level = int(data['p_level'])
         meta.current_mmr = int(data['p_currentmmr'])
         meta.current_rank = int(data['p_currentrank'])
 
@@ -44,7 +43,6 @@ class R6TabAPI:
 
         meta.AS_mmr = int(data['p_AS_currentmmr'])
         meta.AS_rank = int(data['p_AS_rank'])
-        meta.last_queried = datetime.datetime.now(tz=pytz.UTC)
         meta.save()
         return meta
 
@@ -52,9 +50,13 @@ class R6TabAPI:
     def save_defaults(player, user_data):
         player.username = user_data['p_name']
         player.p_user = user_data['p_user']
-        player.current_mmr = int(user_data['p_currentmmr'])
-        player.current_rank = int(user_data['p_currentrank'])
-        player.current_level = int(user_data['p_level'])
+
+        metadata = player.get_metadata()
+        metadata.current_mmr = int(user_data['p_currentmmr'])
+        metadata.current_rank = int(user_data['p_currentrank'])
+        metadata.current_level = int(user_data['p_level'])
+        metadata.save()
+
         player.last_queried = datetime.datetime.now(tz=pytz.UTC)
         player.save()
         return player
