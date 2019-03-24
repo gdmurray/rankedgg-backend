@@ -12,6 +12,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://ranked.wtf',
     'https://www.ranked.wtf',
     "ranked-gg.herokuapp.com",
+    "https://api.ranked.wtf",
+    "wss://api.ranked.wtf",
+    "api.ranked.wtf",
     "https://ranked-gg.herokuapp.com",
 )
 DEBUG = False
