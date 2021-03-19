@@ -21,7 +21,7 @@ Django==2.1.7
 django-cors-headers==2.5.1
 django-ipware==2.1.0
 django-rest-framework==0.1.0
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 gunicorn==19.9.0
 hiredis==1.0.0
 hyperlink==18.0.0
